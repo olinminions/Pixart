@@ -1,3 +1,8 @@
+/**
+ * GraphPixart class implements a Adjacent Matrix Graph created specifically or Pixart
+ * 
+ */
+
 import java.util.*;
 
 public class GraphPixart{
@@ -125,6 +130,7 @@ public class GraphPixart{
 		}
 	}
 
+	//overwriting toString method
 	public String toString(){
 	    String result = "";
 	    
@@ -141,13 +147,15 @@ public class GraphPixart{
 	    return result;
 	}
 
+	//testing
 	public static void main(String[] args){
-		GraphPixart g = new GraphPixart(3);
+		GraphPixart g = new GraphPixart(5);
 	    
 	    System.out.println(g.toString());
-	    System.out.println(g.getVertexNoArcs(2));
-	    g.removeRandomArcs(5);
-
+	    System.out.println("No of arcs for vertex 2:" + g.getVertexNoArcs(2));
+	    
+	    g.removeRandomArcs(15);
+	    System.out.println("No of arcs for vertex 2:" + g.getVertexNoArcs(2));
 	    System.out.println(g.toString());
 	}
 }
