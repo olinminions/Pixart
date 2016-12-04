@@ -33,7 +33,7 @@ public class PixartPanel extends JPanel {
     bottom.add(quitButton);
     add(bottom, BorderLayout.SOUTH);
     
-    ImageIcon logo = createImageIcon("pixart.png", "logo");
+    ImageIcon logo = new ImageIcon("pixart.png", "logo");
     status = new JLabel(logo);
     top = new JPanel();
     top.add(status);
@@ -150,21 +150,5 @@ public class PixartPanel extends JPanel {
     }
   }
 
-  /** 
-   * Creates and returns an ImageIcon out of an image file.
-   * @param path The path to the imagefile relevant to the current file.
-   * @param description A short description to the image.
-   * @return ImageIcon An ImageIcon, or null if the path was invalid. 
-   */
-  private static ImageIcon createImageIcon(String path, String description) {
-    java.net.URL imgURL = Pixart.class.getResource(path);
-    if (imgURL != null) {
-      return new ImageIcon(imgURL, description);
-    } else {
-      System.err.println("Couldn't find file: " + path);
-      return null;
-    }
-  }
-    
   
 } //end PixartPanel public class
