@@ -1,6 +1,9 @@
 /**
- * GraphPixart class implements a Adjacent Matrix Graph created specifically or Pixart
- * 
+ * GraphPixart class creates a Adjacent Matrix Graph created specifically or Pixart
+ * GraphPixart class implements getNoVertices, getNoArcs, ind, getVertexesNoArc, 
+ * getMaxArc, removeRandomArcs and toString methods
+ * @author: HaoZheng Du, Jee Hyun Kim, XiaoZheng Xu
+ * Last Modified Date: 4 Dec 2016
  */
 
 import java.util.*;
@@ -10,10 +13,6 @@ public class GraphPixart{
 	protected int n; //no. of vertices
 	protected boolean[][] arcs; //adjacency matrix
 	protected int[] vertices; //value of vertices
-
-	//adjacency matrix
-	private final boolean f = false;
-	private final boolean t = true;
 
 	//vertex
 	private final int NOTFOUND = -1;
@@ -39,9 +38,9 @@ public class GraphPixart{
 		for (int i = 0; i<v; i++){
 			vertices[i] = i;
 			for (int j = 0; j<v; j++){
-				arcs[i][j] = t;
+				arcs[i][j] = true;
 				if (i == j)
-					arcs[i][j] = f;
+					arcs[i][j] = false;
 			}
 		}
 	}
@@ -122,8 +121,8 @@ public class GraphPixart{
 		//remove arcs
 		while (rmEdge > 0){ //arcs left to be removed
 			int[] e = arclist.get(0); //first element of shuffled list of arc
-			if (arcs[e[0]][e[1]] == t){
-				arcs[e[0]][e[1]] = f; //remove arc
+			if (arcs[e[0]][e[1]] == true){
+				arcs[e[0]][e[1]] = false; //remove arc
 				rmEdge--; //took out one arc
 			}
 			arclist.remove(0); //remove the removed arc
