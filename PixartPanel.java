@@ -21,8 +21,7 @@ public class PixartPanel extends JPanel {
   private Pixart art; 
  
   // PixartPanel constructor. Notice how it takes an instance of the art as input!
-  public PixartPanel(Pixart a) {
-    this.art = a;
+  public PixartPanel() {
     setLayout(new BorderLayout());
     //Optional bottom panel:
     bottom = new JPanel();
@@ -93,19 +92,6 @@ public class PixartPanel extends JPanel {
        }
     }
     add(pixels, BorderLayout.CENTER);
-      /*
-    xImg = createImageIcon("images/X.jpg",
-                           "an X image");
-    oImg = createImageIcon("images/O.jpg",
-                           "a Y image");
-    tieImg = createImageIcon("images/Tie.jpg",
-                             "a tie image");
-       */
-      
-    /*setLayout(new BorderLayout(10, 10)); // hgap, vgap
-    setBackground(Color.blue); // to match the background color of center grid panel
-    */
-    
     //set background color
     top.setBackground(Color.white);
     bottom.setBackground(Color.white);
@@ -119,15 +105,20 @@ public class PixartPanel extends JPanel {
           System.exit(0);
         }
         else if (event.getSource() == submit){
+          art = new Pixart(height,width,complexity,variation,randomness);
+          art.applyVariation();
+          art.generateColorMat();
+          Pixel[][] cM = art.getColorMat().getMat();
           remove(pixels);
           pixels = new JPanel();
+          pixels.setBackground(Color.white);
           pixels.setLayout(new GridLayout(height,width));
           pixelsBoxes = new JPanel[height][width];
           for (int i = 0; i<height;i++){
             for(int j = 0; j<width;j++){
               pixelsBoxes[i][j] = new JPanel();
-              if (i == 0 || i == height-1 || j == 0 || j == width-1) 
-                pixelsBoxes[i][j].setBackground(Color.white);
+              int[] color = cM[i][j].getColor();
+              pixelsBoxes[i][j].setBackground(new Color(color[0],color[1],color[2]));
               pixels.add(pixelsBoxes[i][j]);
             }
           }
@@ -146,6 +137,18 @@ public class PixartPanel extends JPanel {
           String text = widthField.getText();
           width = Integer.parseInt(text);
           System.out.println(width);
+        }if (event.getSource() == variationField){
+          String text = variationField.getText();
+          variation = Integer.parseInt(text);
+          System.out.println(variation);
+        }if (event.getSource() == complexityField){
+          String text = complexityField.getText();
+          complexity = Integer.parseInt(text);
+          System.out.println(complexity);
+        }if (event.getSource() == randomnessField){
+          String text = randomnessField.getText();
+          randomness = Integer.parseInt(text);
+          System.out.println(randomness);
         }
     }
   }

@@ -1,3 +1,9 @@
+/** 
+* FILE NAME: Pixart.java
+* WHO: Xiaozheng Xu, Haozheng Du, Jee Hyun Kim
+* WHAT: Sets up a pixart.
+*/
+
 import java.util.*;
 public class Pixart{
   
@@ -39,8 +45,7 @@ public class Pixart{
 
   public void setColor(Pixel pixel){
    int id = pixel.getId();
-   int colorValue = (int) (gp.getVertexNoArcs(id)/(double)gp.getMaxArc() * 255);
-   
+   int colorValue = (int) (gp.getVertexNoArcs(id%complexity)/(double)gp.getMaxArc() * 255);
    System.out.println(colorValue);
    pixel.setColor(colorValue,colorValue,colorValue);
   }
@@ -53,12 +58,13 @@ public class Pixart{
    this.initPos[1] = initY;
    Pixel origin = new Pixel(0, initX, initY);
    setColor(origin);
-   for(int i = 0; i < complexity; i++){
+   for(int i = 0; i < width*height; i++){
     Pixel pixel = colorMat.setNextPixel(i);
     if (pixel == null)
        return;
     setColor(pixel);
    }
+   colorMat.fillColors();
   }
   public static void main(String[] args){
     Pixart art = new Pixart(10,10,100,250,1);
@@ -66,6 +72,5 @@ public class Pixart{
     art.generateColorMat();
   }
 }
-
 
 
