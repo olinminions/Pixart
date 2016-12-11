@@ -1,9 +1,11 @@
-
-/** 
- * CS230 Final Project: Pixart
- * Jee Hyun Kim, Haozheng Du, Xiaozheng Xu
- * Color Matrix class 
+/**
+ * ColorMat class sets up the color matrix of pixel
+ * it implements getMat, getPixelById, setInitialPixel, setNextPixel and getColors method
+ * @author: HaoZheng Du, Jee Hyun Kim, XiaoZheng Xu
+ * Last Modified Date: 11 Dec 2016
  */
+
+import java.util.*;
 
 public class ColorMat{
  private int height;
@@ -19,6 +21,7 @@ public class ColorMat{
   this.count = 0;
  }
  
+ //get color matrix
  public Pixel[][] getMat(){
    return mat;
  }
@@ -38,43 +41,90 @@ public class ColorMat{
    return dummy;
  }
  
+ //set the initial pixel position
  public void setInitialPixel(Pixel p){
    mat[p.getY()][p.getX()] = p;
  }
- //We need to change the following else if cases so that it pickes a random neiboring pixel rather than always going to the right if the right one is empty 
+
+
  public Pixel setNextPixel(Pixel current){
   int currentX = current.getX();
   int currentY = current.getY();
   int id = current.getId();
-  if(currentX>0 && mat[currentY][currentX-1] == null){
-   Pixel nextPixel = new Pixel(id+1, currentX-1, currentY);
-   mat[currentY][currentX-1] = nextPixel;
-   count ++;
-   return nextPixel; 
-  }
-  else if(currentX<width-1 && mat[currentY][currentX+1] == null){
-   Pixel nextPixel = new Pixel(id+1, currentX+1, currentY);
-   mat[currentY][currentX+1] = nextPixel;
-   count ++;
-   return nextPixel; 
-  }
-  else if(currentY<height-1 && mat[currentY+1][currentX] == null){
-   Pixel nextPixel = new Pixel(id+1, currentX, currentY+1);
-   mat[currentY+1][currentX] = nextPixel;
-   count ++; 
-   return nextPixel; 
 
+  Random r = new Random();
+  int randomneighbor = r.nextInt(4);
+
+  for (int i = randomneighbor; i<randomneighbor+4; i++){
+    
+    switch(randomneighbor%4){
+
+      case 0:
+        if(currentX>0 && mat[currentY][currentX-1] == null){
+         Pixel nextPixel = new Pixel(id+1, currentX-1, currentY);
+         mat[currentY][currentX-1] = nextPixel;
+         count ++;
+         return nextPixel; 
+        }
+      
+      case 1:
+        if(currentX<width-1 && mat[currentY][currentX+1] == null){
+         Pixel nextPixel = new Pixel(id+1, currentX+1, currentY);
+         mat[currentY][currentX+1] = nextPixel;
+         count ++;
+         return nextPixel; 
+        }
+      
+      case 2:
+        if(currentX<width-1 && mat[currentY][currentX+1] == null){
+           Pixel nextPixel = new Pixel(id+1, currentX+1, currentY);
+           mat[currentY][currentX+1] = nextPixel;
+           count ++;
+           return nextPixel; 
+        }
+      
+      case 3:
+        if(currentY>0 && mat[currentY-1][currentX] == null){
+           Pixel nextPixel = new Pixel(id+1, currentX, currentY-1);
+           mat[currentY-1][currentX] = nextPixel;
+           count ++;
+           return nextPixel; 
+        }
+      }
   }
-  else if(currentY>0 && mat[currentY-1][currentX] == null){
-   Pixel nextPixel = new Pixel(id+1, currentX, currentY-1);
-   mat[currentY-1][currentX] = nextPixel;
-   count ++;
-   return nextPixel; 
-  }
+
+  // if(currentX>0 && mat[currentY][currentX-1] == null){
+  //  Pixel nextPixel = new Pixel(id+1, currentX-1, currentY);
+  //  mat[currentY][currentX-1] = nextPixel;
+  //  count ++;
+  //  return nextPixel; 
+  // }
+
+  // else if(currentX<width-1 && mat[currentY][currentX+1] == null){
+  //  Pixel nextPixel = new Pixel(id+1, currentX+1, currentY);
+  //  mat[currentY][currentX+1] = nextPixel;
+  //  count ++;
+  //  return nextPixel; 
+  // }
+
+  // else if(currentY<height-1 && mat[currentY+1][currentX] == null){
+  //  Pixel nextPixel = new Pixel(id+1, currentX, currentY+1);
+  //  mat[currentY+1][currentX] = nextPixel;
+  //  count ++; 
+  //  return nextPixel; 
+
+  // }
+  // else if(currentY>0 && mat[currentY-1][currentX] == null){
+  //  Pixel nextPixel = new Pixel(id+1, currentX, currentY-1);
+  //  mat[currentY-1][currentX] = nextPixel;
+  //  count ++;
+  //  return nextPixel; 
+  // }
+
   // What is this below doing: (if can't find a non-empty pixel next to the current one, try to find one next to the last one? but doesn't that mess up with id)?
   //This else if statement below gives the StackOverflow Error 
   //This should be if the neiboring 4 pixels are all occupied, try the neiboring pixels 2 units away, and so on... 
-  else if(id>0 && count<width*height){
+  if(id>0 && count<width*height){
     current.check();
     return setNextPixel(getPixelById(id-1));
   }
