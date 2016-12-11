@@ -46,7 +46,7 @@ public class Pixart{
   public void setColor(Pixel pixel){
    int id = pixel.getId();
    int colorValue = (int) (gp.getVertexNoArcs(id%complexity)/(double)gp.getMaxArc() * 255);
-   System.out.println(colorValue);
+//   System.out.println(colorValue);
    pixel.setColor(colorValue,colorValue,colorValue);
   }
 
@@ -56,13 +56,20 @@ public class Pixart{
    int initY = rnd.nextInt(height);
    this.initPos[0] = initX;
    this.initPos[1] = initY;
+   System.out.println("Initial position: " + initX + " , " + initY);
    Pixel origin = new Pixel(0, initX, initY);
    setColor(origin);
+   colorMat.setInitialPixel(origin);
+   Pixel current = origin;
+   //Decide on whether we want to:
+   // 1. fill in only the same number of pixels as vertices and blend in the rest 
+   //or
+   // 2. loop through and fill in all pixels (might create a repeating pattern that maybe looks nice)
    for(int i = 0; i < width*height; i++){
-    Pixel pixel = colorMat.setNextPixel(i);
-    if (pixel == null)
-       return;
-    setColor(pixel);
+    current = colorMat.setNextPixel(current);
+    if (current == null)
+       break;
+    setColor(current);
    }
    colorMat.fillColors();
   }
