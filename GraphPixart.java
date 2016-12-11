@@ -98,6 +98,8 @@ public class GraphPixart{
 		//generate number of arcs to be removed
 		Random r = new Random();
 		int rmEdge = r.nextInt(var); //generate random number from 0(in) to var(exc) to remove
+		if (rmEdge == 0)
+			rmEdge = 1;
 
 		//just in case Edges to remove exceeds Number of total Arcs
 		if (rmEdge >= getNoArcs()){

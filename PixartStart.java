@@ -52,7 +52,7 @@ public class PixartStart extends JPanel implements ActionListener {
   //check how it works
   public static void main(String[] args) {
     JFrame frame = new JFrame("Fade out");
-    frame.add(new FadeOutImage());
+    frame.add(new PixartStart());
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setSize(300, 250);
     frame.setVisible(true);

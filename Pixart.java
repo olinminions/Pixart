@@ -1,8 +1,9 @@
-/** 
-* FILE NAME: Pixart.java
-* WHO: Xiaozheng Xu, Haozheng Du, Jee Hyun Kim
-* WHAT: Sets up a pixart.
-*/
+/**
+ * Pixart class sets up pixart, which is the main class
+ * it implements getters, applyVariation, getGraphicPixart, setColors, generateColorMat methods
+ * @author: HaoZheng Du, Jee Hyun Kim, XiaoZheng Xu
+ * Last Modified Date: 11 Dec 2016
+ */
 
 import java.util.*;
 public class Pixart{
