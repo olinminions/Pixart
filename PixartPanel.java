@@ -18,7 +18,7 @@ public class PixartPanel extends JPanel {
   private JButton quitButton, submit;
   private JRadioButton red, blue, green, grey, purple, yellow, cyan, pastel; 
   private JTextField heightField, widthField,complexityField, variationField;
-  private String colorScheme;
+  private int colorScheme;
 
   //private ImageIcon xImg, oImg, tieImg; //these images will be used in a couple
   // of diff methods,so make them instance vars, and create them only once.
@@ -147,21 +147,21 @@ public class PixartPanel extends JPanel {
     public void actionPerformed(ActionEvent event){
       Object source = event.getSource();
       if (source == red)
-        colorScheme = "Red";
+        colorScheme = 1;
       else if (source == green)
-        colorScheme = "Green";
+        colorScheme = 2;
       else if (source == purple)
-        colorScheme = "Purple";
+        colorScheme = 4;
       else if (source == blue)
-        colorScheme = "Blue";
+        colorScheme = 3;
       else if (source == yellow)
-        colorScheme = "Yellow";
+        colorScheme = 6;
       else if (source == grey)
-        colorScheme = "Grey";
+        colorScheme = 0;
       else if (source == cyan)
-        colorScheme = "Cyan";
+        colorScheme = 5;
       else
-        colorScheme = "Pastel";
+        colorScheme = 7;
     }
   }
   
