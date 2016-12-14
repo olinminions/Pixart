@@ -13,12 +13,14 @@ public class PixartPanel extends JPanel {
 
   //instance vars
   private JPanel bottom,top,settings,pixels;
-  private JLabel status, h,w,c,v, colorl; //status is the logo
+  private JLabel status, h,w,c,v, colorl, b; //status is the logo
   private JPanel[][] pixelsBoxes;
   private JButton quitButton, submit;
   private JRadioButton red, blue, green, grey, purple, yellow, cyan, pastel; 
+  private JRadioButton blur0, blur1, blur2;
   private JTextField heightField, widthField,complexityField, variationField;
   private int colorScheme;
+  private int blur;
 
   //private ImageIcon xImg, oImg, tieImg; //these images will be used in a couple
   // of diff methods,so make them instance vars, and create them only once.
@@ -73,6 +75,7 @@ public class PixartPanel extends JPanel {
     c = new JLabel("Complexity(0-100):");
     v = new JLabel("Variation():");
     colorl = new JLabel("Choose a color schme:");
+    b = new JLabel("Blur Option:");
     //generate button graph
     submit = new JButton ("Generate Graph!");
     submit.addActionListener(new ButtonListener());
@@ -88,6 +91,8 @@ public class PixartPanel extends JPanel {
     settings.add(colorl);
     settings.add(red);settings.add(blue);settings.add(green);settings.add(grey);
     settings.add(purple);settings.add(yellow);settings.add(cyan);settings.add(pastel);
+    settings.add(b);
+    settings.add(blur0); settings.add(blur1); settings.add(blur2);
     settings.add(Box.createVerticalGlue());
     settings.add(submit);
     add(settings, BorderLayout.WEST);
@@ -141,7 +146,21 @@ public class PixartPanel extends JPanel {
     purple.addActionListener(listener);
     yellow.addActionListener(listener);
     pastel.addActionListener(listener);
+
+    blur0 = new JRadioButton("No blur");
+    blur1 = new JRadioButton("Light Blur");
+    blur2 = new JRadioButton("Heavy Blur");
+    ButtonGroup groupBlur = new ButtonGroup();
+    groupBlur.add(blur0);
+    groupBlur.add(blur1);
+    groupBlur.add(blur2);
+    RadioButtonListener listener = new RadioButtonListener();
+    blur0.addActionListener(listener);
+    blur1.addActionListener(listener);
+    blur2.addActionListener(listener);
   }
+
+
   
    private class RadioButtonListener implements ActionListener{
     public void actionPerformed(ActionEvent event){
@@ -160,8 +179,15 @@ public class PixartPanel extends JPanel {
         colorScheme = 0;
       else if (source == cyan)
         colorScheme = 5;
-      else
+      else if (source == pastel)
         colorScheme = 7;
+      else if (source == blur0)
+        blur = 0;
+      else if (source == blur1)
+        blur = 1;
+      else if (source == blur2)
+        blur = 2;
+
     }
   }
   
@@ -174,7 +200,7 @@ public class PixartPanel extends JPanel {
         //for other buttons
         else if (event.getSource() == submit){
           //get new pixart
-          art = new Pixart(height,width,complexity,variation, colorScheme);
+          art = new Pixart(height,width,complexity,variation, colorScheme, blur);
           art.applyVariation();
           art.generateColorMat();
           Pixel[][] cM = art.getColorMat().getMat();
