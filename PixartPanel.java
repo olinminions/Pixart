@@ -13,14 +13,16 @@ public class PixartPanel extends JPanel {
 
   //instance vars
   private JPanel bottom,top,settings,pixels;
-  private JLabel status;
+  private JLabel status, h,w,c,v, colorl; //status is the logo
   private JPanel[][] pixelsBoxes;
   private JButton quitButton, submit;
-  private JTextField heightField, widthField,complexityField, variationField, randomnessField;
+  private JRadioButton red, blue, green, grey, purple, yellow, cyan, pastel; 
+  private JTextField heightField, widthField,complexityField, variationField;
+  private String colorScheme;
 
   //private ImageIcon xImg, oImg, tieImg; //these images will be used in a couple
   // of diff methods,so make them instance vars, and create them only once.
-  int height, width, complexity, variation, randomness;
+  int height, width, complexity, variation;
 
   private Pixart art; 
  
@@ -36,8 +38,6 @@ public class PixartPanel extends JPanel {
     bottom.add(Box.createHorizontalGlue());
     bottom.add(quitButton);
     add(bottom, BorderLayout.SOUTH);
-    
-
 
     //Top panel with pisart logo
     ImageIcon logo = new ImageIcon("pixart.png", "logo");
@@ -45,8 +45,6 @@ public class PixartPanel extends JPanel {
     top = new JPanel();
     top.add(status);
     add(top, BorderLayout.NORTH);
-    
-
 
     //Panel for all the user inputs
     settings = new JPanel();
@@ -54,29 +52,27 @@ public class PixartPanel extends JPanel {
     //height input
     heightField = new JTextField(5);
     heightField.addActionListener(new TextListener());
-    heightField.setMaximumSize(new Dimension(200,20));
+    heightField.setMaximumSize(new Dimension(400,20));
     //width input
     widthField = new JTextField(5);
     widthField.addActionListener(new TextListener());
-    widthField.setMaximumSize(new Dimension(200,20));
+    widthField.setMaximumSize(new Dimension(400,20));
     //complexity input
     complexityField = new JTextField(5);
     complexityField.addActionListener(new TextListener());
-    complexityField.setMaximumSize(new Dimension(200,20));
-    //randomness input
-    randomnessField = new JTextField(5);
-    randomnessField.addActionListener(new TextListener());
-    randomnessField.setMaximumSize(new Dimension(200,20));
+    complexityField.setMaximumSize(new Dimension(400,20));
     //variation input
     variationField = new JTextField(5);
     variationField.addActionListener(new TextListener());
-    variationField.setMaximumSize(new Dimension(200,20));
+    variationField.setMaximumSize(new Dimension(400,20));
+    //color schme input
+    createRadioButtons();
     //set labels
-    JLabel h = new JLabel("height:");
-    JLabel w = new JLabel("width:");
-    JLabel c = new JLabel("complexity ():");
-    JLabel r = new JLabel("randomness ():");
-    JLabel v = new JLabel("variation ():");
+    h = new JLabel("Height(10-1000):");
+    w = new JLabel("Width(10-1000):");
+    c = new JLabel("Complexity(0-100):");
+    v = new JLabel("Variation():");
+    colorl = new JLabel("Choose a color schme:");
     //generate button graph
     submit = new JButton ("Generate Graph!");
     submit.addActionListener(new ButtonListener());
@@ -87,15 +83,14 @@ public class PixartPanel extends JPanel {
     settings.add(widthField);
     settings.add(c);
     settings.add(complexityField);
-    settings.add(r);
-    settings.add(randomnessField);
     settings.add(v);
     settings.add(variationField);
+    settings.add(colorl);
+    settings.add(red);settings.add(blue);settings.add(green);settings.add(grey);
+    settings.add(purple);settings.add(yellow);settings.add(cyan);settings.add(pastel);
     settings.add(Box.createVerticalGlue());
     settings.add(submit);
     add(settings, BorderLayout.WEST);
-    
-
 
     //panel which displays the art
     pixels = new JPanel();
@@ -125,8 +120,51 @@ public class PixartPanel extends JPanel {
     pixels.setBackground(Color.white);
   }
   
-
-
+  private void createRadioButtons(){
+    red = new JRadioButton("Red");
+    blue = new JRadioButton("Blue");
+    green = new JRadioButton("Green");
+    grey = new JRadioButton("Grey");
+    cyan = new JRadioButton("Cyan");
+    purple = new JRadioButton("Purple");
+    yellow = new JRadioButton("Yellow");
+    pastel = new JRadioButton("Pastel");
+    ButtonGroup group = new ButtonGroup();
+    group.add(red);group.add(blue);group.add(green);group.add(grey);
+    group.add(cyan);group.add(purple);group.add(yellow);group.add(pastel);
+    RadioButtonListener listener = new RadioButtonListener();
+    red.addActionListener(listener);
+    blue.addActionListener(listener);
+    green.addActionListener(listener);
+    grey.addActionListener(listener);
+    cyan.addActionListener(listener);
+    purple.addActionListener(listener);
+    yellow.addActionListener(listener);
+    pastel.addActionListener(listener);
+  }
+  
+   private class RadioButtonListener implements ActionListener{
+    public void actionPerformed(ActionEvent event){
+      Object source = event.getSource();
+      if (source == red)
+        colorScheme = "Red";
+      else if (source == green)
+        colorScheme = "Green";
+      else if (source == purple)
+        colorScheme = "Purple";
+      else if (source == blue)
+        colorScheme = "Blue";
+      else if (source == yellow)
+        colorScheme = "Yellow";
+      else if (source == grey)
+        colorScheme = "Grey";
+      else if (source == cyan)
+        colorScheme = "Cyan";
+      else
+        colorScheme = "Pastel";
+    }
+  }
+  
   private class ButtonListener implements ActionListener{
     public void actionPerformed (ActionEvent event){
       //quit if quit button
@@ -136,7 +174,7 @@ public class PixartPanel extends JPanel {
         //for other buttons
         else if (event.getSource() == submit){
           //get new pixart
-          art = new Pixart(height,width,complexity,variation,randomness);
+          art = new Pixart(height,width,complexity,variation, colorScheme);
           art.applyVariation();
           art.generateColorMat();
           Pixel[][] cM = art.getColorMat().getMat();
@@ -156,12 +194,12 @@ public class PixartPanel extends JPanel {
             }
           }
           add(pixels, BorderLayout.CENTER);
+          doLayout();
+          revalidate();
         }
     }
   }
   
-
-
   private class TextListener implements ActionListener{
     public void actionPerformed (ActionEvent event){
       //update values for each inputs
@@ -183,12 +221,9 @@ public class PixartPanel extends JPanel {
         }if (event.getSource() == complexityField){
           String text = complexityField.getText();
           complexity = Integer.parseInt(text);
+          v.setText("Variation(0 - " + complexity*complexity/2 +"):");
+          settings.repaint();
           System.out.println(complexity);
-
-        }if (event.getSource() == randomnessField){
-          String text = randomnessField.getText();
-          randomness = Integer.parseInt(text);
-          System.out.println(randomness);
         }
     }
   }
