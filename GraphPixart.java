@@ -91,6 +91,19 @@ public class GraphPixart{
 		return n*2-2;
 	}
 
+	public void removeArcs(int var){
+		int arcstoremove = var;
+		for (int i = 0; i<n; i++){
+			for (int j = i; j<n; j++){
+				if (arcs[i][j]){
+					arcs[i][j] = false;
+					if (--arcstoremove <= 0)
+						return;
+				}
+			}
+		}
+	}
+
 	//removes var number of arcs at random
 	//var input is from the variation input of the user
 	public void removeRandomArcs(int var){
@@ -135,16 +148,16 @@ public class GraphPixart{
 	public String toString(){
 	    String result = "";
 	    
-	    for (int i = 0; i < n; i++){
-	        result += ((i+1) + " " + this.vertices[i] + "\n");
-	    }
-	      result += ("#" + "\n");
-	      for (int i = 0; i<n; i++){
+	    for (int i = 0; i<n; i++){
 	        for (int j = 0; j<n; j++){
-	          if (arcs[i][j])
-	            result += ((i+1) + " " + (j+1)  + "\n");
+	        	if (arcs[i][j])
+	            	result += (1 + "\t");
+	        	else
+	        		result += (0 + "\t");
 	        }
+	        result += "\n";
 	    }
+
 	    return result;
 	}
 
@@ -156,6 +169,15 @@ public class GraphPixart{
 	    System.out.println("No of arcs for vertex 2:" + g.getVertexNoArcs(2));
 	    
 	    g.removeRandomArcs(15);
+	    System.out.println("No of arcs for vertex 2:" + g.getVertexNoArcs(2));
+	    System.out.println(g.toString());
+
+	    g = new GraphPixart(5);
+	    
+	    System.out.println(g.toString());
+	    System.out.println("No of arcs for vertex 2:" + g.getVertexNoArcs(2));
+	    
+	    g.removeArcs(5);
 	    System.out.println("No of arcs for vertex 2:" + g.getVertexNoArcs(2));
 	    System.out.println(g.toString());
 	}

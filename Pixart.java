@@ -41,7 +41,7 @@ public class Pixart{
    return this.gp;
   }
   public void applyVariation(){
-   gp.removeRandomArcs(variation);
+   gp.removeArcs(variation);
   }
 
   public void setColor(Pixel pixel){
@@ -51,8 +51,8 @@ public class Pixart{
     int b = 0; //blue (0-255)
     int cv; //color value (0-400)
 
-    cv = (int) (gp.getVertexNoArcs(id%complexity)/(double)gp.getMaxArc() * 20);
-    cv = cv*20;
+    cv = (int) (gp.getVertexNoArcs(id%complexity)/(double)gp.getMaxArc() * 400);
+    // cv = cv*20;
 
     switch(colorscheme){
       case 1: //Red
@@ -159,9 +159,9 @@ public class Pixart{
         break;
     }
 
-//    System.out.println(colorscheme);
-//    System.out.println("cv: " + cv);
-//    System.out.println("r: " + r + "g: " + g + "b: " + b);
+   System.out.println(colorscheme);
+   System.out.println("cv: " + cv);
+   System.out.println("r: " + r + "g: " + g + "b: " + b);
     pixel.setColor(r, g, b);
   }
 
