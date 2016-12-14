@@ -14,15 +14,17 @@ public class Pixart{
   private int complexity;
   private ColorMat colorMat;
   private int colorscheme;
+  private int blur;
   private int []initPos;
   private GraphPixart gp;
 
-  public Pixart(int height, int width, int complexity, int variation, int colorscheme){
+  public Pixart(int height, int width, int complexity, int variation, int colorscheme, int blur){
    this.height = height;
    this.width = width;
    this.complexity = complexity;
    this.variation = variation;
    this.colorscheme = colorscheme;
+   this.blur = blur;
    this.colorMat = new ColorMat(height, width);
    this.initPos = new int[2];
    this.gp = new GraphPixart(complexity);
@@ -173,7 +175,7 @@ public class Pixart{
    int initY = rnd.nextInt(height);
    this.initPos[0] = initX;
    this.initPos[1] = initY;
-   System.out.println("Initial position: " + initX + " , " + initY);
+//   System.out.println("Initial position: " + initX + " , " + initY);
    Pixel origin = new Pixel(0, initX, initY);
    setColor(origin);
    colorMat.setInitialPixel(origin);
@@ -188,10 +190,10 @@ public class Pixart{
       break;
     setColor(current);
    }
-   colorMat.fillColors();
+   colorMat.fillColors(blur);
   }
   public static void main(String[] args){
-    Pixart art = new Pixart(10,10,100,250,0);
+    Pixart art = new Pixart(10,10,100,250,0,0);
     art.applyVariation();
     art.generateColorMat();
   }

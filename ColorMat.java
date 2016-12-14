@@ -1,6 +1,6 @@
 /**
  * ColorMat class sets up the color matrix of pixel
- * it implements getMat, getPixelById, setInitialPixel, setNextPixel and getColors method
+ * it implements getMat, getPixelById, setInitialPixel, setNextPixel ,fillColors, blur and getColors method
  * @author: HaoZheng Du, Jee Hyun Kim, XiaoZheng Xu
  * Last Modified Date: 11 Dec 2016
  */
@@ -26,9 +26,9 @@ public class ColorMat{
    return mat;
  }
  
- // Change this method below to be more efficient!:
+ // can make this method more efficient: since this is called in the recursion and we know the position of the next pixel,
+ // we can give it the posiitons instead of the id.
  public Pixel getPixelById(int id){
-//   System.out.println(id);
    for(int i = 0; i < height; i++){
      for(int j = 0; j < width; j++){
        if(mat[i][j]!= null){
@@ -124,20 +124,25 @@ public class ColorMat{
   //  return nextPixel; 
   // }
 
-  // What is this below doing: (if can't find a non-empty pixel next to the current one, try to find one next to the last one? but doesn't that mess up with id)?
-  //This else if statement below gives the StackOverflow Error 
-  //This should be if the neiboring 4 pixels are all occupied, try the neiboring pixels 2 units away, and so on... 
-  if(id>0 && count<width*height){
+  //It there's no more empty pixel around the current pixel, try to find an empty space around a previous pixel. 
+  if(id>0 && count<width*height){ //If we got back to the first pixel, return null
     current.check();
-    return setNextPixel(getPixelById(id-1));
+    return setNextPixel(getPixelById(id-1)); //RECURSION
   }
+  // Almost all the pixels are filled up
   else{
-    System.out.println("returning null");
+//    System.out.println("returning null");
     return null;
   }
  }
  
- public void fillColors(){
+  /*
+  * This method fills all spaces in the matrix with a dummy pixel 
+  * with original color set to white. This prevent null pointer exception from happening in other code 
+  * and provide a white color for bluring adjacent colors in the blur() method
+  * @params int blur: how many times to call the blur function (0,1,2)
+  */ 
+ public void fillColors(int blur){
    for(int i = 0; i < height; i++){
      for(int j = 0; j < width; j++){
        if(mat[i][j] == null){
@@ -146,23 +151,31 @@ public class ColorMat{
        }
      }
    }
-   blur();
+   for (int b =  0; b<blur; b++){
+     blur();
+   }
  }
  
+ 
+ /*
+  * This method blurs the image by setting each pixel's color values to be the average of the 8 pixel color values around it 
+  * It sets all pixels in place instead of creating a new matrix so that pixels further down are affected by previous ones
+  */ 
  public void blur(){
-   for(int i = 1; i < height-1; i++){
-     for(int j = 1; j < width-1; j++){
-//       if(mat[i][j] == null){
-         float r = mat[i][j-1].getColor()[0];float g = mat[i][j-1].getColor()[1]; float b = mat[i][j-1].getColor()[2];
-         for (int k = -1; k<2; k++){
-           r+=mat[i-1][j+k].getColor()[0]; g+=mat[i-1][j+k].getColor()[1]; b+=mat[i-1][j+k].getColor()[2]; 
-           r+=mat[i+1][j+k].getColor()[0]; g+=mat[i+1][j+k].getColor()[1]; b+=mat[i+1][j+k].getColor()[2]; 
+   for(int i = 0; i < height; i++){
+     for(int j = 0; j < width; j++){
+       float r = 0, g = 0, b = 0;
+       int count = 0;
+       for (int x = Math.max(i-1,0); x<=Math.min(i+1,height-1); x++){ // The Math.max and min takes care of the boundary values 
+         for (int y = Math.max(j-1,0); y<=Math.min(j+1,width-1); y++){
+           r+=mat[x][y].getColor()[0]; g+=mat[x][y].getColor()[1]; b+=mat[x][y].getColor()[2];
+           count++;
          }
-         r+=mat[i][j+1].getColor()[0]; g+=mat[i][j+1].getColor()[1]; b+=mat[i][j+1].getColor()[2];
-         r/=8; g/=8; b/=8;
-         Pixel x = new Pixel(j, i, (int)r, (int) g, (int) b);
-         mat[i][j] = x;
-//       }
+       }
+       r-=mat[i][j].getColor()[0];g-=mat[i][j].getColor()[1];b-=mat[i][j].getColor()[2]; // subtract the color values of the pixel in the middle
+       r/= (count-1); g/= (count-1); b/=(count-1); 
+       Pixel x = new Pixel(j, i, (int)r, (int) g, (int) b);
+       mat[i][j] = x;
      }
    }
  }
