@@ -10,19 +10,19 @@ public class Pixart{
   
   private int width;
   private int height;
-  private int randomness;
   private int variation;
   private int complexity;
   private ColorMat colorMat;
+  private String colorscheme;
   private int []initPos;
   private GraphPixart gp;
 
-  public Pixart(int height, int width, int complexity, int variation, int randomness){
+  public Pixart(int height, int width, int complexity, int variation, String colorscheme){
    this.height = height;
    this.width = width;
    this.complexity = complexity;
    this.variation = variation;
-   this.randomness = randomness;
+   this.colorscheme = colorscheme;
    this.colorMat = new ColorMat(height, width);
    this.initPos = new int[2];
    this.gp = new GraphPixart(complexity);
@@ -45,11 +45,88 @@ public class Pixart{
   }
 
   public void setColor(Pixel pixel){
-   int id = pixel.getId();
-   int colorValue = (int) (gp.getVertexNoArcs(id%complexity)/(double)gp.getMaxArc() * 255);
-//   System.out.println(colorValue);
-   pixel.setColor(colorValue,colorValue,colorValue);
+    int id = pixel.getId();
+    int r = 0; //red (0-255)
+    int g = 0; //green (0-255)
+    int b = 0; //blue (0-255)
+    int cv; //color value (0-400)
+
+    cv = (int) (gp.getVertexNoArcs(id%complexity)/(double)gp.getMaxArc() * 400);
+
+    switch(colorscheme){
+      case "Red":
+        if (cs>255){
+          r = 255;
+          g = cs-255;
+          b = cs-255;
+        }
+        else{
+          r = cs;
+        }
+
+      case "Green":
+        if (cs>255){
+          g = 255;
+          r = cs-255;
+          b = cs-255;
+        }
+        else{
+          g = cs;
+        }
+
+      case "Blue":
+        if (cs>255){
+          b = 255;
+          r = cs-255;
+          g = cs-255;
+        }
+        else{
+          b = cs;
+        }
+
+      case "Gray":
+        r = cs*255/400;
+        g = cs*255/400;
+        b = cs*255/400;
+
+      case "Purple":
+        if (cs>255){
+          r = 255;
+          b = 255;
+          g = cs-255;
+        }
+        else{
+          r = cs;
+          b = cs;
+        }
+
+      case "Cyan":
+        if (cs>255){
+          g = 255;
+          b = 255;
+          r = cs-255;
+        }
+        else{
+          g = cs;
+          b = cs;
+        }
+
+      case "Yellow":
+        if (cs>255){
+          r = 255;
+          g = 255;
+          b = cs-255;
+        }
+        else{
+          r = cs;
+          g = cs;
+        }
+
+    }
+
+    pixel.setColor(r, g, b);
   }
+
 
   public void generateColorMat(){
    Random rnd = new Random();
