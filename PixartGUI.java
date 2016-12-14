@@ -25,7 +25,6 @@ public class PixartGUI {
     while (start.running()){} //wait for starting window to end
     frame.remove(start); //remove starting frame once it ended
 
-
     //create a panel, and add it to the frame
     PixartPanel panel = new PixartPanel();
     frame.getContentPane().add(panel);

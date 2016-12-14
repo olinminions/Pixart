@@ -159,9 +159,9 @@ public class Pixart{
         break;
     }
 
-    System.out.println(colorscheme);
-    System.out.println("cv: " + cv);
-    System.out.println("r: " + r + "g: " + g + "b: " + b);
+//    System.out.println(colorscheme);
+//    System.out.println("cv: " + cv);
+//    System.out.println("r: " + r + "g: " + g + "b: " + b);
     pixel.setColor(r, g, b);
   }
 
@@ -183,8 +183,8 @@ public class Pixart{
    // 2. loop through and fill in all pixels (might create a repeating pattern that maybe looks nice)
    for(int i = 0; i < width*height; i++){
     current = colorMat.setNextPixel(current);
-    // if (current == null)
-    //    break;
+    if (current == null)
+      break;
     setColor(current);
    }
    colorMat.fillColors();
@@ -195,5 +195,3 @@ public class Pixart{
     art.generateColorMat();
   }
 }
-
-

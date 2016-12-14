@@ -135,10 +135,13 @@ public class ColorMat{
  }
  
  public void fillColors(){
-   Pixel p = new Pixel();
-   for(int i = 0; i < height; i++)
-     for(int j = 0; j < width; j++)
-       if(mat[i][j]== null)
+   for(int i = 0; i < height; i++){
+     for(int j = 0; j < width; j++){
+       if(mat[i][j]== null){
+         Pixel p = new Pixel();
          mat[i][j] = p;
+       }
+     }
+   }
  }
 }
