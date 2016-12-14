@@ -13,11 +13,11 @@ public class Pixart{
   private int variation;
   private int complexity;
   private ColorMat colorMat;
-  private String colorscheme;
+  private int colorscheme;
   private int []initPos;
   private GraphPixart gp;
 
-  public Pixart(int height, int width, int complexity, int variation, String colorscheme){
+  public Pixart(int height, int width, int complexity, int variation, int colorscheme){
    this.height = height;
    this.width = width;
    this.complexity = complexity;
@@ -51,10 +51,11 @@ public class Pixart{
     int b = 0; //blue (0-255)
     int cv; //color value (0-400)
 
-    cv = (int) (gp.getVertexNoArcs(id%complexity)/(double)gp.getMaxArc() * 400);
+    cv = (int) (gp.getVertexNoArcs(id%complexity)/(double)gp.getMaxArc() * 20);
+    cv = cv*20;
 
     switch(colorscheme){
-      case "Red":
+      case 1: //Red
         if (cv > 255){
           r = 255;
           g = cv-255;
@@ -63,8 +64,9 @@ public class Pixart{
         else{
           r = cv;
         }
+        break;
 
-      case "Green":
+      case 2: //Green
         if (cv > 255){
           g = 255;
           r = cv-255;
@@ -73,8 +75,10 @@ public class Pixart{
         else{
           g = cv;
         }
+        break;
 
-      case "Blue":
+
+      case 3: //Blue
         if (cv > 255){
           b = 255;
           r = cv-255;
@@ -83,13 +87,15 @@ public class Pixart{
         else{
           b = cv;
         }
+        break;
 
-      case "Gray":
+      case 0: //Grey
         r = cv*255/400;
         g = cv*255/400;
         b = cv*255/400;
+        break;
 
-      case "Purple":
+      case 4: //Purple
         if (cv > 255){
           r = 255;
           b = 255;
@@ -99,8 +105,9 @@ public class Pixart{
           r = cv;
           b = cv;
         }
+        break;
 
-      case "Cyan":
+      case 5: //Cyan
         if (cv > 255){
           g = 255;
           b = 255;
@@ -110,8 +117,9 @@ public class Pixart{
           g = cv;
           b = cv;
         }
+        break;
 
-      case "Yellow":
+      case 6: //Yellow
         if (cv > 255){
           r = 255;
           g = 255;
@@ -121,8 +129,9 @@ public class Pixart{
           r = cv;
           g = cv;
         }
+        break;
 
-      case "Pastel":
+      case 7: //Pastel
         if (cv<50){
           r = 255; g = 182; b = 193; //lightpink
         }
@@ -147,8 +156,12 @@ public class Pixart{
         else{
           r = 152; g = 251; b = 152; //palegreen
         }
+        break;
     }
 
+    System.out.println(colorscheme);
+    System.out.println("cv: " + cv);
+    System.out.println("r: " + r + "g: " + g + "b: " + b);
     pixel.setColor(r, g, b);
   }
 
@@ -170,14 +183,14 @@ public class Pixart{
    // 2. loop through and fill in all pixels (might create a repeating pattern that maybe looks nice)
    for(int i = 0; i < width*height; i++){
     current = colorMat.setNextPixel(current);
-    if (current == null)
-       break;
+    // if (current == null)
+    //    break;
     setColor(current);
    }
    colorMat.fillColors();
   }
   public static void main(String[] args){
-    Pixart art = new Pixart(10,10,100,250,"Red");
+    Pixart art = new Pixart(10,10,100,250,0);
     art.applyVariation();
     art.generateColorMat();
   }
