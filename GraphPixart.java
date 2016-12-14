@@ -91,6 +91,7 @@ public class GraphPixart{
 		return n*2-2;
 	}
 
+	//remove arcs in a standard way
 	public void removeArcs(int var){
 		int arcstoremove = var;
 		for (int i = 0; i<n; i++){
