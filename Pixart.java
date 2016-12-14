@@ -55,73 +55,98 @@ public class Pixart{
 
     switch(colorscheme){
       case "Red":
-        if (cs>255){
+        if (cv > 255){
           r = 255;
-          g = cs-255;
-          b = cs-255;
+          g = cv-255;
+          b = cv-255;
         }
         else{
-          r = cs;
+          r = cv;
         }
 
       case "Green":
-        if (cs>255){
+        if (cv > 255){
           g = 255;
-          r = cs-255;
-          b = cs-255;
+          r = cv-255;
+          b = cv-255;
         }
         else{
-          g = cs;
+          g = cv;
         }
 
       case "Blue":
-        if (cs>255){
+        if (cv > 255){
           b = 255;
-          r = cs-255;
-          g = cs-255;
+          r = cv-255;
+          g = cv-255;
         }
         else{
-          b = cs;
+          b = cv;
         }
 
       case "Gray":
-        r = cs*255/400;
-        g = cs*255/400;
-        b = cs*255/400;
+        r = cv*255/400;
+        g = cv*255/400;
+        b = cv*255/400;
 
       case "Purple":
-        if (cs>255){
+        if (cv > 255){
           r = 255;
           b = 255;
-          g = cs-255;
+          g = cv-255;
         }
         else{
-          r = cs;
-          b = cs;
+          r = cv;
+          b = cv;
         }
 
       case "Cyan":
-        if (cs>255){
+        if (cv > 255){
           g = 255;
           b = 255;
-          r = cs-255;
+          r = cv-255;
         }
         else{
-          g = cs;
-          b = cs;
+          g = cv;
+          b = cv;
         }
 
       case "Yellow":
-        if (cs>255){
+        if (cv > 255){
           r = 255;
           g = 255;
-          b = cs-255;
+          b = cv-255;
         }
         else{
-          r = cs;
-          g = cs;
+          r = cv;
+          g = cv;
         }
 
+      case "Pastel":
+        if (cv<50){
+          r = 255; g = 182; b = 193; //lightpink
+        }
+        else if (cv < 100){
+          r = 171; g = 130; b = 255; //mediumpurple
+        }
+        else if (cv < 150){
+          r = 176; g = 224; b = 230; //powderblue
+        }
+        else if (cv < 200){
+          r = 102; g = 205; b = 170; //aquamarine
+        }
+        else if (cv < 250){
+          r = 188; g = 238; b = 104; //darkolivegreen
+        }
+        else if (cv < 300){
+          r = 255; g = 246; b = 143; //khaki
+        }
+        else if (cv < 350){
+          r = 255; g = 211; b = 155; //burlywood
+        }
+        else{
+          r = 152; g = 251; b = 152; //palegreen
+        }
     }
 
     pixel.setColor(r, g, b);
@@ -152,7 +177,7 @@ public class Pixart{
    colorMat.fillColors();
   }
   public static void main(String[] args){
-    Pixart art = new Pixart(10,10,100,250,1);
+    Pixart art = new Pixart(10,10,100,250,"Red");
     art.applyVariation();
     art.generateColorMat();
   }
