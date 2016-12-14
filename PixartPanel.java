@@ -221,7 +221,7 @@ public class PixartPanel extends JPanel {
         }if (event.getSource() == complexityField){
           String text = complexityField.getText();
           complexity = Integer.parseInt(text);
-          v.setText("Variation(0 - " + complexity*complexity/2 +"):");
+          v.setText("Variation(0 - " + (complexity-1)*complexity/2 +"):");
           settings.repaint();
           System.out.println(complexity);
         }

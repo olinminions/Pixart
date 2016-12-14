@@ -22,6 +22,15 @@ public class Pixel{
   color[0] = color[1]= color[2] = 255;
  }
 
+ public Pixel(int posX, int posY, int r, int g, int b){
+   this.posX = posX;
+   this.posY = posY;
+   color = new int[3];
+   color[0] = r;
+   color[1]= g;
+   color[2] = b;
+ }
+ 
  public Pixel(){
    color = new int[3];
    color[0] = color[1]= color[2] = 255;

@@ -41,7 +41,8 @@ public class Pixart{
    return this.gp;
   }
   public void applyVariation(){
-   gp.removeArcs(variation);
+   gp.removeRandomArcs(variation);
+//   gp.removeArcs(variation);
   }
 
   public void setColor(Pixel pixel){
@@ -51,8 +52,8 @@ public class Pixart{
     int b = 0; //blue (0-255)
     int cv; //color value (0-400)
 
-    cv = (int) (gp.getVertexNoArcs(id%complexity)/(double)gp.getMaxArc() * 400);
-    // cv = cv*20;
+    cv = (int) (gp.getVertexNoArcs(id%complexity)/(double)gp.getMaxArc() * 20);
+    cv = cv*20;
 
     switch(colorscheme){
       case 1: //Red
@@ -133,25 +134,25 @@ public class Pixart{
 
       case 7: //Pastel
         if (cv<50){
-          r = 255; g = 182; b = 193; //lightpink
+        r = 255; g = 246; b = 143; //khaki
         }
         else if (cv < 100){
-          r = 171; g = 130; b = 255; //mediumpurple
+          r = 255; g = 211; b = 155; //burlywood
         }
         else if (cv < 150){
-          r = 176; g = 224; b = 230; //powderblue
+          r = 188; g = 238; b = 104; //darkolivegreen
         }
         else if (cv < 200){
           r = 102; g = 205; b = 170; //aquamarine
         }
         else if (cv < 250){
-          r = 188; g = 238; b = 104; //darkolivegreen
+          r = 176; g = 224; b = 230; //powderblue
         }
         else if (cv < 300){
-          r = 255; g = 246; b = 143; //khaki
+          r = 255; g = 182; b = 193; //lightpink
         }
         else if (cv < 350){
-          r = 255; g = 211; b = 155; //burlywood
+          r = 171; g = 130; b = 255; //mediumpurple
         }
         else{
           r = 152; g = 251; b = 152; //palegreen
@@ -159,9 +160,9 @@ public class Pixart{
         break;
     }
 
-   System.out.println(colorscheme);
-   System.out.println("cv: " + cv);
-   System.out.println("r: " + r + "g: " + g + "b: " + b);
+//   System.out.println(colorscheme);
+//   System.out.println("cv: " + cv);
+//   System.out.println("r: " + r + "g: " + g + "b: " + b);
     pixel.setColor(r, g, b);
   }
 
