@@ -1,5 +1,12 @@
 # Pixart
-Abstract art from graphs
+Creating abstract art from graphs
+
+## Installing Pixart
+Git clone Pixart
+
+## Running Pixart
+Run the run.sh script in terminal 
+$ bash ./run.sh
 
 ## GUI
 ![GUI](https://github.com/olinminions/Pixart/blob/master/images/gui.png "GUI")
