@@ -32,5 +32,6 @@ Run the run.sh script in terminal
 	* heavy blur (blur twice)
 * **Generate Graph**: The button that generates the art and updates the screen.
 * **Quit**: Exit the program and closes the window.
+
 ## UML
 ![UML](https://github.com/olinminions/Pixart/blob/master/images/UML.png "UML")
