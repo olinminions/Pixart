@@ -1,0 +1,28 @@
+ColorMat.java
+- Bill
+- Jee Hyun (randomneighbor in setNextPixel)
+- Xiaozheng (blur, changed input for setPixel)
+
+GraphPixart.java
+- Jee Hyun
+
+Pixart.java
+- Bill
+- Jee Hyun (setColor)
+
+PixartGUI.java
+- Judy (main person)
+- Jee Hyun (starting frame only)
+
+PixartPanel.java
+-Judy
+
+PixartStart.java (modified from FadeOurImage.java from http://www.java2s.com/Code/Java/2D-Graphics-GUI/Fadeoutanimageimagegraduallygetmoretransparentuntilitiscompletelyinvisible.htm)
+- Jee Hyun (main person)
+
+Pixel.java
+- Bill
+
+README.md
+run.sh
+- Jee Hyun
