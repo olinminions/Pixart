@@ -3,6 +3,7 @@ Creating abstract art from graphs
 
 ## Installing Pixart
 Git clone Pixart
+<pre><code>$git clone https://github.com/olinminions/Pixart.git</code></pre>
 
 ## Running Pixart
 Run the run.sh script in terminal 
