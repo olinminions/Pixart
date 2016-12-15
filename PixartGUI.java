@@ -28,6 +28,7 @@ public class PixartGUI {
     //create a panel, and add it to the frame
     PixartPanel panel = new PixartPanel();
     frame.getContentPane().add(panel);
+    frame.setSize(700,1500);
     frame.pack();
 
   }

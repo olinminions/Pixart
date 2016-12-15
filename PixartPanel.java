@@ -126,6 +126,7 @@ public class PixartPanel extends JPanel {
   }
   
   private void createRadioButtons(){
+    //radio button for color scheme
     red = new JRadioButton("Red");
     blue = new JRadioButton("Blue");
     green = new JRadioButton("Green");
@@ -147,6 +148,7 @@ public class PixartPanel extends JPanel {
     yellow.addActionListener(listener);
     pastel.addActionListener(listener);
 
+    // radio button for blur option
     blur0 = new JRadioButton("No blur");
     blur1 = new JRadioButton("Light Blur");
     blur2 = new JRadioButton("Heavy Blur");
@@ -154,10 +156,23 @@ public class PixartPanel extends JPanel {
     groupBlur.add(blur0);
     groupBlur.add(blur1);
     groupBlur.add(blur2);
-    RadioButtonListener listener = new RadioButtonListener();
     blur0.addActionListener(listener);
     blur1.addActionListener(listener);
     blur2.addActionListener(listener);
+
+    //setting colors
+    red.setBackground(Color.white);
+    blue.setBackground(Color.white);
+    green.setBackground(Color.white);
+    grey.setBackground(Color.white);
+    cyan.setBackground(Color.white);
+    purple.setBackground(Color.white);
+    yellow.setBackground(Color.white);
+    pastel.setBackground(Color.white);
+
+    blur0.setBackground(Color.white);
+    blur1.setBackground(Color.white);
+    blur2.setBackground(Color.white);
   }
 
 
@@ -165,6 +180,7 @@ public class PixartPanel extends JPanel {
    private class RadioButtonListener implements ActionListener{
     public void actionPerformed(ActionEvent event){
       Object source = event.getSource();
+      //for color scheme
       if (source == red)
         colorScheme = 1;
       else if (source == green)
@@ -181,6 +197,7 @@ public class PixartPanel extends JPanel {
         colorScheme = 5;
       else if (source == pastel)
         colorScheme = 7;
+      //for blur
       else if (source == blur0)
         blur = 0;
       else if (source == blur1)
