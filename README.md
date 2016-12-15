@@ -6,7 +6,7 @@ Git clone Pixart
 
 ## Running Pixart
 Run the run.sh script in terminal 
-<$ bash ./run.sh>
+<pre><code>$ bash ./run.sh</code></pre>
 
 ## GUI
 ![GUI](https://github.com/olinminions/Pixart/blob/master/images/gui.png "GUI")
