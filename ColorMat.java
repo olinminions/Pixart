@@ -8,11 +8,12 @@
 import java.util.*;
 
 public class ColorMat{
- private int height;
- private int width;
- private int count;
- private Pixel[][] mat;
+ private int height; // height of the colorMat
+ private int width; // width of the colorMat
+ private int count; // current number of pixels 
+ private Pixel[][] mat; // a matrix of pixels
 
+ // contruct a coloMat given height and width
  public ColorMat(int height, int width){
   this.height = height;
   this.width = width;
@@ -21,13 +22,12 @@ public class ColorMat{
   this.count = 0;
  }
  
- //get color matrix
+ // get color matrix
  public Pixel[][] getMat(){
    return mat;
  }
  
- // can make this method more efficient: since this is called in the recursion and we know the position of the next pixel,
- // we can give it the posiitons instead of the id.
+ // get the pixel given an id
  public Pixel getPixelById(int id){
    for(int i = 0; i < height; i++){
      for(int j = 0; j < width; j++){
@@ -46,12 +46,16 @@ public class ColorMat{
    mat[p.getY()][p.getX()] = p;
  }
 
-
+ // return the next pixel based on the id and position of current pixel
  public Pixel setNextPixel(Pixel current){
+  // get the id and position of current pixel
   int currentX = current.getX();
   int currentY = current.getY();
   int id = current.getId();
 
+  // randomly select a pixel next to the current pixel,
+  // which can be the one above/ to the left/ to the right/ below
+  // the current pixel.
   Random r = new Random();
   int randomneighbor = r.nextInt(4);
 
@@ -96,33 +100,6 @@ public class ColorMat{
       }
   }
 
-  // if(currentX>0 && mat[currentY][currentX-1] == null){
-  //  Pixel nextPixel = new Pixel(id+1, currentX-1, currentY);
-  //  mat[currentY][currentX-1] = nextPixel;
-  //  count ++;
-  //  return nextPixel; 
-  // }
-
-  // else if(currentX<width-1 && mat[currentY][currentX+1] == null){
-  //  Pixel nextPixel = new Pixel(id+1, currentX+1, currentY);
-  //  mat[currentY][currentX+1] = nextPixel;
-  //  count ++;
-  //  return nextPixel; 
-  // }
-
-  // else if(currentY<height-1 && mat[currentY+1][currentX] == null){
-  //  Pixel nextPixel = new Pixel(id+1, currentX, currentY+1);
-  //  mat[currentY+1][currentX] = nextPixel;
-  //  count ++; 
-  //  return nextPixel; 
-
-  // }
-  // else if(currentY>0 && mat[currentY-1][currentX] == null){
-  //  Pixel nextPixel = new Pixel(id+1, currentX, currentY-1);
-  //  mat[currentY-1][currentX] = nextPixel;
-  //  count ++;
-  //  return nextPixel; 
-  // }
 
   //It there's no more empty pixel around the current pixel, try to find an empty space around a previous pixel. 
   if(id>0 && count<width*height){ //If we got back to the first pixel, return null

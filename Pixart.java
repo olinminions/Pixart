@@ -8,16 +8,17 @@
 import java.util.*;
 public class Pixart{
   
-  private int width;
-  private int height;
-  private int variation;
-  private int complexity;
+  private int width; // width of the art generated (user input)
+  private int height; // height of the art generated (user input)
+  private int variation; // user input variation
+  private int complexity; // user input complexity
   private ColorMat colorMat;
-  private int colorscheme;
-  private int blur;
-  private int []initPos;
+  private int colorscheme; // different color schemes (user input)
+  private int blur; // the number of times we blur the image (0,1,2) (user input)
+  private int []initPos; // position of the starting point
   private GraphPixart gp;
 
+  // construct a Pixart given all user inputs.
   public Pixart(int height, int width, int complexity, int variation, int colorscheme, int blur){
    this.height = height;
    this.width = width;
@@ -30,23 +31,28 @@ public class Pixart{
    this.gp = new GraphPixart(complexity);
   }
 
+  // get width of the matrix
   public int getWidth(){
    return this.width;
   }
+  // get height of the matrix
   public int getHeight(){
    return this.height;
   }
+  // get the matrix
   public ColorMat getColorMat(){
    return this.colorMat;
   }
+  // get the graph
   public GraphPixart getGraphPixart(){
    return this.gp;
   }
+  // apply user input "variantion" to the graph
   public void applyVariation(){
    gp.removeRandomArcs(variation);
-//   gp.removeArcs(variation);
   }
 
+  // set the color of a pixel
   public void setColor(Pixel pixel){
     int id = pixel.getId();
     int r = 0; //red (0-255)
@@ -54,9 +60,10 @@ public class Pixart{
     int b = 0; //blue (0-255)
     int cv; //color value (0-400)
 
+    // generate color value based on the graph
     cv = (int) (gp.getVertexNoArcs(id%complexity)/(double)gp.getMaxArc() * 20);
     cv = cv*20;
-
+    // enable different color schemes
     switch(colorscheme){
       case 1: //Red
         if (cv > 255){
@@ -165,33 +172,36 @@ public class Pixart{
 //   System.out.println(colorscheme);
 //   System.out.println("cv: " + cv);
 //   System.out.println("r: " + r + "g: " + g + "b: " + b);
-    pixel.setColor(r, g, b);
+    pixel.setColor(r, g, b); // set the color of the pixel
   }
 
-
+  // generate a ColorMat.
   public void generateColorMat(){
+   // generate a pair of random number and set it as the starting point.
    Random rnd = new Random();
    int initX = rnd.nextInt(width);
    int initY = rnd.nextInt(height);
    this.initPos[0] = initX;
    this.initPos[1] = initY;
 //   System.out.println("Initial position: " + initX + " , " + initY);
+   
+   // initialize the starting point and fill in the color. 
    Pixel origin = new Pixel(0, initX, initY);
    setColor(origin);
    colorMat.setInitialPixel(origin);
    Pixel current = origin;
-   //Decide on whether we want to:
-   // 1. fill in only the same number of pixels as vertices and blend in the rest 
-   //or
-   // 2. loop through and fill in all pixels (might create a repeating pattern that maybe looks nice)
+
+   // loop through the colorMat and set colors for each pixel.
    for(int i = 0; i < width*height; i++){
     current = colorMat.setNextPixel(current);
     if (current == null)
       break;
     setColor(current);
    }
-   colorMat.fillColors(blur);
+   colorMat.fillColors(blur); // blur the image
   }
+
+  // testing Pixart
   public static void main(String[] args){
     Pixart art = new Pixart(10,10,100,250,0,0);
     art.applyVariation();
