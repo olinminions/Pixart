@@ -2,12 +2,13 @@
 Abstract art from graphs
 
 ## GUI
-<center>	 
+![GUI](gui.png "GUI")
+<!-- <center>	 
 <figure>
   <img src="{{ site.baseurl }}/gui.png" alt="GUI" style="width: 500px;"/>
   <figcaption>GUI</figcaption>
 </figure>
-</center>
+</center> -->
 
 ## User Inputs
 * **pixel height, width** : sets the pixel by pixel size of image
@@ -30,7 +31,7 @@ Abstract art from graphs
 ## UML
 <center>	 
 <figure>
-  <img src="{{ site.baseurl }}/UML.png" alt="UML" style="width: 500px;"/>
+  <img src="{UML.png" alt="UML" style="width: 500px;"/>
   <figcaption>UML</figcaption>
 </figure>
 </center>
