@@ -13,7 +13,7 @@ import javax.swing.*;
 
 public class PixartStart extends JPanel implements ActionListener {
   
-  private Image im = new ImageIcon("pixart.png").getImage(); //image
+  private Image im = new ImageIcon("images/pixart.png").getImage(); //image
   public Timer timer = new Timer(20, this); //time
   private float alpha = 1f; //fade
 

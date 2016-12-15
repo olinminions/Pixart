@@ -42,7 +42,7 @@ public class PixartPanel extends JPanel {
     add(bottom, BorderLayout.SOUTH);
 
     //Top panel with pisart logo
-    ImageIcon logo = new ImageIcon("pixart.png", "logo");
+    ImageIcon logo = new ImageIcon("images/pixart.png", "logo");
     status = new JLabel(logo);
     top = new JPanel();
     top.add(status);
