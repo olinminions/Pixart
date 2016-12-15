@@ -11,14 +11,14 @@ Pixart.java
 - Jee Hyun (setColor)
 
 PixartGUI.java
-- Judy (main person)
-- Jee Hyun (starting frame only)
+- Judy 
+- Jee Hyun (starting frame)
 
 PixartPanel.java
 -Judy
 
 PixartStart.java (modified from FadeOurImage.java from http://www.java2s.com/Code/Java/2D-Graphics-GUI/Fadeoutanimageimagegraduallygetmoretransparentuntilitiscompletelyinvisible.htm)
-- Jee Hyun (main person)
+- Jee Hyun
 
 Pixel.java
 - Bill
