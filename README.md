@@ -2,7 +2,7 @@
 Abstract art from graphs
 
 ## GUI
-![Alt text](gui.png "GUI")
+![Alt text](https://github.com/olinminions/Pixart/blob/master/UML.png "GUI")
 <!-- <center>	 
 <figure>
   <img src="{{ site.baseurl }}/gui.png" alt="GUI" style="width: 500px;"/>
@@ -31,7 +31,7 @@ Abstract art from graphs
 ## UML
 <center>	 
 <figure>
-  <img src="{UML.png" alt="UML" style="width: 500px;"/>
+  <img src="{https://github.com/olinminions/Pixart/blob/master/UML.png" alt="UML" style="width: 500px;"/>
   <figcaption>UML</figcaption>
 </figure>
 </center>
