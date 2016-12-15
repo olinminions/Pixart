@@ -33,6 +33,9 @@ public class GraphPixart{
   if (v == 0)
    return;
 
+  if (v > CAP)
+    v = CAP;
+
   n = v;
 
   for (int i = 0; i<v; i++){
@@ -91,6 +94,7 @@ public class GraphPixart{
   return n*2-2;
  }
 
+ //removes arc in a standard manner
  public void removeArcs(int var){
   int arcstoremove = var;
   for (int i = 0; i<n; i++){
