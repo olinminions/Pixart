@@ -2,7 +2,7 @@
 Abstract art from graphs
 
 ## GUI
-![GUI](gui.png "GUI")
+![Alt text](gui.png "GUI")
 <!-- <center>	 
 <figure>
   <img src="{{ site.baseurl }}/gui.png" alt="GUI" style="width: 500px;"/>
